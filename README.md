@@ -18,7 +18,10 @@ end
 # => 2016-12-03 08:31:23.873
 ```
 
-You could make only 9 more executions until the window is reset at 2016-12-03 08:31:53.873.
+This doesn't mean the count is reset back to 0 at `2016-12-03 08:31:53.873`. Its a continuous rolling count, the count
+is checked with every invocation over the last 30 seconds.
+ 
+If you invoke this rate 9 times at `2016-12-03 08:31:53.500`, you will only be able to make one more call until `2016-12-03 08:32:23.500`. 
 
 ## Install
 
