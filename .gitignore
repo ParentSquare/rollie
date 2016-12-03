@@ -1,0 +1,12 @@
+*.gem
+*.rbc
+Gemfile.lock
+.DS_Store
+doc/
+rdoc/
+/spec/reports/
+/.bundle
+tmp/
+.ruby-gemset
+.ruby-version
+.idea/
