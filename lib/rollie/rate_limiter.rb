@@ -15,7 +15,7 @@ module Rollie
       @key = "#{options[:namespace]}#{key}"
       @limit = options[:limit] || 25
       @interval = (options[:interval] || 1000) * 1000
-      @count_blocked = options.key?(:count_blocked) ? options[:count_blocked] : true
+      @count_blocked = options.key?(:count_blocked) ? options[:count_blocked] : false
     end
 
     # Executes a block as long as the current rate is within the limit.

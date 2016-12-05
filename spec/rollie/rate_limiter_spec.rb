@@ -4,7 +4,7 @@ module Rollie
   describe RateLimiter do
 
     before do
-      @r = RateLimiter.new(SecureRandom.hex(8))
+      @r = RateLimiter.new(SecureRandom.hex(8), count_blocked: true)
     end
 
     describe :within_limit do
@@ -34,7 +34,7 @@ module Rollie
       end
 
       it "should block all actions within the window" do
-        @r = RateLimiter.new(SecureRandom.hex(8), limit: 10, interval: 100)
+        @r = RateLimiter.new(SecureRandom.hex(8), limit: 10, interval: 100, count_blocked: true)
         count = 0
         30.times do
           @r.within_limit do
