@@ -5,6 +5,7 @@ require "rollie/version"
 
 module Rollie
   class << self
+
     def redis
       raise ArgumentError, "requires a block" unless block_given?
       redis_pool.with do |conn|
@@ -23,6 +24,6 @@ module Rollie
     def redis_pool
       @redis_pool ||= Rollie::RedisPool.create
     end
-  end
 
+  end
 end

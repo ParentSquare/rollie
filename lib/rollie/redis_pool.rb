@@ -7,7 +7,6 @@ module Rollie
     class << self
 
       def create(options={})
-        puts "initialized with options: #{options}"
         pool_size = options[:pool_size] || 5
         pool_timeout = options[:pool_timeout] || 1
 
