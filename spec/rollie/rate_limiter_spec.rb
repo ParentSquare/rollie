@@ -52,7 +52,7 @@ module Rollie
           @r.within_limit do
             count += 1
           end
-          sleep 0.0035
+          sleep 0.0045
         end
         expect(count).to eq(20)
       end
