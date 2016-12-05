@@ -69,6 +69,15 @@ You can also use a namespace if you want to track multiple entities, for example
 Rollie::RateLimiter.new(user_id, namespace: "user_messages", limit: 100, interval: 30000)
 ```
 
+### Counting blocked actions
+
+By default, blocked actions are not counted against the callee. This allows for the block to be executed within the
+rate even when there is a continuous flood of action. If you wish to change this behaviour, for example to require the callee to back off before being allowed to excute again, set this option to true.
+
+```
+request_rate = Rollie::RateLimiter.new(ip, namespace: "ip", limit: 30, interval: 1000, count_blocked: true)
+```
+
 ## Configuration
 
 By default Rollie will try to connect to redis using `ENV["REDIS_URL"]` if set or fallback to localhost:6379. You can
