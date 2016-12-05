@@ -13,11 +13,11 @@ module Rollie
       end
     end
 
-    def redis=(hash)
-      @redis_pool = if hash.is_a?(ConnectionPool)
-         hash
+    def redis=(options)
+      @redis_pool = if options.is_a?(ConnectionPool)
+        options
        else
-         Rollie::RedisPool.create(hash)
+        Rollie::RedisPool.create(options)
        end
     end
 
