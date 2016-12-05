@@ -2,6 +2,7 @@
 *.rbc
 Gemfile.lock
 .DS_Store
+dump.rdb
 doc/
 rdoc/
 /spec/reports/
