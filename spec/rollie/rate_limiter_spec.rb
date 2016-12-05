@@ -59,5 +59,25 @@ module Rollie
 
     end
 
+    describe :count do
+
+      it "should return the current count" do
+        30.times do
+          @r.within_limit do; sleep 0.001; end
+        end
+
+        expect(@r.count).to eq(30)
+
+        @r = RateLimiter.new(SecureRandom.hex(8), limit: 10, count_blocked: false)
+
+        30.times do
+          @r.within_limit do; sleep 0.001; end
+        end
+
+        expect(@r.count).to eq(10)
+      end
+
+    end
+
   end
 end

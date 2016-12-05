@@ -21,6 +21,13 @@ module Rollie
       end
     end
 
+    def count
+      Rollie.redis do |conn|
+        range = conn.zrange(@key, 0, -1)
+        range.length
+      end
+    end
+
     private
 
     def inc(conn)
