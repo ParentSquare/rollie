@@ -1,9 +1,10 @@
 require "spec_helper"
 
-describe Rollie do
+module Rollie
+  describe RateLimiter do
 
     before do
-      @r = Rollie::RateLimiter.new(SecureRandom.hex(8))
+      @r = RateLimiter.new(SecureRandom.hex(8))
     end
 
     describe :within_limit do
@@ -28,21 +29,35 @@ describe Rollie do
           end
         end
         expect(count).to eq(25)
-        expect(status.count).to eq(25)
+        expect(status.count).to eq(30)
         expect(status.exceeded?).to be(true)
       end
 
-      it "should be a rolling window" do
-        @r = Rollie::RateLimiter.new(SecureRandom.hex(8), limit: 10, interval: 50)
+      it "should block all actions within the window" do
+        @r = RateLimiter.new(SecureRandom.hex(8), limit: 10, interval: 100)
         count = 0
         30.times do
           @r.within_limit do
             count += 1
-            sleep 0.05
           end
+          sleep 0.004
         end
-        expect(count).to eq(30)
+        expect(count).to eq(10)
       end
+
+      it "should allow blocked actions not to be counted" do
+        @r = RateLimiter.new(SecureRandom.hex(8), limit: 10, interval: 100, count_blocked: false)
+        count = 0
+        30.times do
+          @r.within_limit do
+            count += 1
+          end
+          sleep 0.004
+        end
+        expect(count).to eq(20)
+      end
+
     end
 
+  end
 end
