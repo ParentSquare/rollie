@@ -13,11 +13,10 @@ Gem::Specification.new do |s|
   s.email = "zldavis@gmail.com"
   s.homepage = "https://github.com/zldavis/rollie"
 
-  s.files = ["lib/rollie.rb", "lib/rollie/rate_limiter.rb", "lib/rollie/redis_pool.rb", "lib/rollie/status.rb", "lib/rollie/version.rb"]
+  s.files = `git ls-files -z`.split("\x0")
+  s.test_files = `git ls-files -- test/*`.split("\n")
 
   s.require_paths = ["lib"]
-
-  s.extra_rdoc_files = %w[README.md LICENSE]
 
   s.add_dependency "redis", "~> 3.2", ">= 3.2.1"
   s.add_dependency "redis-namespace", "~> 1.5", ">= 1.5.2"
