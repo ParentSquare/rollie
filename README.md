@@ -4,11 +4,12 @@
 
 Rollie is a multi-purpose, fast, redis backed rate limiter that can be used to limit requests to external APIs, in Rack
 middleware, etc. Rollie uses a dedicated redis connection pool implemented using `connection_pool` for more efficient
-redis connection management.
-   
+redis connection management. The redis algorithm was inspired by the
+[rolling-rate-limiter](https://www.npmjs.com/package/rolling-rate-limiter) node package.
+
 The key implementation detail is that Rollie utilizes a rolling window to bucket invocations in. Meaning, if you set
 a limit of 100 per 30 seconds, Rollie will start the clock in instant it is first executed with a given key.
-     
+
 For example, first execution:
 ```
 rollie = Rollie::RateLimiter.new("api", limit: 10, interval: 30000)
