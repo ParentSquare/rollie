@@ -2,6 +2,15 @@ module Rollie
 
   class RateLimiter
 
+    # Create a new RateLimiter instance.
+    #
+    # @param [String] key A unique name to track this rate limit against.
+    # @option options [Integer] :limit The limit
+    # @option options [Integer] :interval The interval in milliseconds for this rate limit
+    # @option options [String] :namespace Optional namespace for this rate limit
+    # @option options [Boolean] :count_blocked if true, all calls to within_limit will count towards total execution count, even if blocked.
+    #
+    # @return [RateLimiter] RateLimiter instance
     def initialize(key, options = {})
       @key = "#{options[:namespace]}#{key}"
       @limit = options[:limit] || 25
@@ -9,6 +18,9 @@ module Rollie
       @count_blocked = options.key?(:count_blocked) ? options[:count_blocked] : true
     end
 
+    # Executes a block as long as the current rate is within the limit.
+    #
+    # @return [Status] The current status for this RateLimiter.
     def within_limit
       raise ArgumentError, "requires a block" unless block_given?
 
@@ -21,6 +33,7 @@ module Rollie
       end
     end
 
+    # @return [Integer] The current count of this RateLimiter.
     def count
       Rollie.redis do |conn|
         range = conn.zrange(@key, 0, -1)
