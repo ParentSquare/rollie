@@ -1,6 +1,6 @@
 # Rollie
 
-[![Build Status](https://travis-ci.org/zldavis/rollie.svg?branch=master)](https://travis-ci.org/zldavis/rollie)
+![CI](https://github.com/ParentSquare/rollie/workflows/CI/badge.svg)
 
 Rollie is a multi-purpose, fast, redis backed rate limiter that can be used to limit requests to external APIs, in Rack
 middleware, etc. Rollie uses a dedicated redis connection pool implemented using `connection_pool` for more efficient

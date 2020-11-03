@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
   s.summary = "Generic rate limiter backed by Redis for efficient limiting using sliding windows."
   s.description = s.summary
 
-  s.authors = ["Zach Davis"]
-  s.email = "zldavis@gmail.com"
-  s.homepage = "https://github.com/zldavis/rollie"
+  s.authors = ["Zach Davis", "Justin Howard"]
+  s.email = "justin.howard@parentsquare.com"
+  s.homepage = "https://github.com/ParentSquare/rollie"
 
   s.files = `git ls-files -z`.split("\x0")
   s.test_files = `git ls-files -- test/*`.split("\n")
