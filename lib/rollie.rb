@@ -1,16 +1,16 @@
-require "rollie/rate_limiter"
-require "rollie/redis_pool"
-require "rollie/status"
-require "rollie/version"
+# frozen_string_literal: true
+
+require 'rollie/rate_limiter'
+require 'rollie/redis_pool'
+require 'rollie/status'
+require 'rollie/version'
 
 module Rollie
   class << self
+    def redis(&block)
+      raise ArgumentError, 'requires a block' unless block
 
-    def redis
-      raise ArgumentError, "requires a block" unless block_given?
-      redis_pool.with do |conn|
-        yield(conn)
-      end
+      redis_pool.with(&block)
     end
 
     # Configures the redis connection pool. Options can be a hash of redis connection pool options or a pre-configured
@@ -24,14 +24,13 @@ module Rollie
     def redis=(options)
       @redis_pool = if options.is_a?(ConnectionPool)
         options
-       else
+      else
         Rollie::RedisPool.create(options)
-       end
+      end
     end
 
     def redis_pool
       @redis_pool ||= Rollie::RedisPool.create
     end
-
   end
 end

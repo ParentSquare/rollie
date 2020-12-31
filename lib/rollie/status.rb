@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Rollie
   class Status
     attr_accessor :time_remaining, :count
