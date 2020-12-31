@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
 
   s.require_paths = ["lib"]
 
-  s.add_dependency "redis", "~> 3.2", ">= 3.2.1"
-  s.add_dependency "redis-namespace", "~> 1.5", ">= 1.5.2"
-  s.add_dependency "connection_pool", "~> 2.2", ">= 2.2.0"
+  s.add_dependency "redis", ">= 3.2.1"
+  s.add_dependency "redis-namespace", ">= 1.5.2"
+  s.add_dependency "connection_pool", ">= 2.2.0"
 end
