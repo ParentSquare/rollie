@@ -11,3 +11,4 @@ tmp/
 .ruby-gemset
 .ruby-version
 .idea/
+/coverage/

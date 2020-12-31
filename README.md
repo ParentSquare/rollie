@@ -1,6 +1,9 @@
 # Rollie
 
-![CI](https://github.com/ParentSquare/rollie/workflows/CI/badge.svg)
+[![Gem Version](https://badge.fury.io/rb/rollie.svg)](https://badge.fury.io/rb/rollie)
+[![CI](https://github.com/ParentSquare/rollie/workflows/CI/badge.svg)](https://github.com/ParentSquare/rollie/actions?query=workflow%3ACI+branch%3Amaster)
+[![Code Climate](https://codeclimate.com/github/ParentSquare/rollie/badges/gpa.svg)](https://codeclimate.com/github/ParentSquare/rollie)
+[![Inline docs](http://inch-ci.org/github/ParentSquare/rollie.svg?branch=master)](http://inch-ci.org/github/ParentSquare/rollie)
 
 Rollie is a multi-purpose, fast, redis backed rate limiter that can be used to limit requests to external APIs, in Rack
 middleware, etc. Rollie uses a dedicated redis connection pool implemented using `connection_pool` for more efficient
