@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1
+
+* Remove maximum dependency versions
+
 ## 0.1.0
 
 * fix for intervals < 1000 ms
