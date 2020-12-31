@@ -2,11 +2,10 @@
 name: CI
 on:
   push:
+    tags: ['v*']
     branches: [master]
   pull_request:
     branches: ['**']
-  release:
-    types: [created]
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -30,7 +29,7 @@ jobs:
 
   release:
     needs: test
-    if: github.event_name == 'release' && startsWith(github.ref, 'refs/tags/v')
+    if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
