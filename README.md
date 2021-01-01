@@ -3,7 +3,7 @@ Rollie
 
 [![Gem Version](https://badge.fury.io/rb/rollie.svg)](https://badge.fury.io/rb/rollie)
 [![CI](https://github.com/ParentSquare/rollie/workflows/CI/badge.svg)](https://github.com/ParentSquare/rollie/actions?query=workflow%3ACI+branch%3Amaster)
-[![Code Climate](https://codeclimate.com/github/ParentSquare/rollie/badges/gpa.svg)](https://codeclimate.com/github/ParentSquare/rollie)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/20f8a080aca5444cbdaebff3a4e7e702)](https://www.codacy.com/gh/ParentSquare/rollie/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ParentSquare/rollie&amp;utm_campaign=Badge_Grade)
 [![Inline docs](http://inch-ci.org/github/ParentSquare/rollie.svg?branch=master)](http://inch-ci.org/github/ParentSquare/rollie)
 
 Rollie is a multi-purpose, fast, Redis backed rate limiter that can be used to
