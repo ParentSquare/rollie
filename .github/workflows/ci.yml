@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby: [2.4, 2.5, 2.6, 2.7, 3.0]
+        ruby: [2.4, 2.5, 2.6, 2.7, 3.0, jruby-9.2.14.0, truffleruby-20.3.0]
     services:
       redis:
         image: redis
@@ -25,7 +25,13 @@ jobs:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
       - run: bundle exec rubocop
+        if: matrix.ruby == '2.7'
       - run: bundle exec rspec --format doc
+      - name: Run codacy-coverage-reporter
+        uses: codacy/codacy-coverage-reporter-action@master
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: coverage/lcov/rollie.lcov
       - run: bin/check-version
 
   release:
