@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.2
+
+* Add new method to only increase counter and decide what happens next
+
 ## 0.1.1
 
 * Remove maximum dependency versions
