@@ -70,6 +70,19 @@ end
 The status will tell you the current state. You can also see the current count
 and how long until the bucket resets.
 
+If you don't want to block the request but control what happens next:
+
+```
+# limit 30 requests per second.
+twitter_rate = Rollie::RateLimiter.new("twitter_requests", limit: 30, interval: 1000)
+status = twitter_rate.increase_counter # This will always count blocked regardless on how you initialized the class
+if status.exceeded?
+  # Do Something here
+else 
+  # Do something different
+end
+```
+
 ```ruby
 status.exceeded?
 # => false

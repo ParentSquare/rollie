@@ -34,6 +34,15 @@ module Rollie
       end
     end
 
+    # Increase counter and let you decide what to do next. Will always count blocked
+    #
+    # @return [Status] The current status for this RateLimiter.
+    def increase_counter
+      Rollie.redis do |conn|
+        inc(conn, true)
+      end
+    end
+
     # @return [Integer] The current count of this RateLimiter.
     def count
       Rollie.redis do |conn|
@@ -44,7 +53,8 @@ module Rollie
 
     private
 
-    def inc(conn)
+    def inc(conn, count_blocked = nil)
+      count_blocked = count_blocked.nil? ? @count_blocked : count_blocked
       time = (Time.now.to_r * 1_000_000).round
       old = time - @interval
       range = conn.multi do
@@ -58,7 +68,7 @@ module Rollie
       current_count = range.length
       time_remaining = range.first.to_i - time + @interval
 
-      if exceeded && !@count_blocked
+      if exceeded && !count_blocked
         conn.zremrangebyscore(@key, time, time)
         current_count -= 1
       end

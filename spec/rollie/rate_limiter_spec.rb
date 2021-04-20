@@ -85,6 +85,29 @@ module Rollie
       end
     end
 
+    describe "#increase_counter" do
+      before do
+        @limiter = RateLimiter.new(SecureRandom.hex(8), count_blocked: false)
+      end
+
+      it "should return status" do
+        status = @limiter.increase_counter
+        expect(status.count).to eq(1)
+        expect(status.exceeded?).to be(false)
+        expect(status.time_remaining).to eq(1000)
+      end
+
+      it "should increase count regardless of count_blocked setting" do
+        35.times do
+          @limiter.increase_counter
+        end
+
+        status = @limiter.increase_counter
+        expect(status.count).to eq(36)
+        expect(status.exceeded?).to be(true)
+      end
+    end
+
     describe '#count' do
       it 'returns the current count' do
         30.times do
