@@ -47,11 +47,11 @@ module Rollie
     def inc(conn)
       time = (Time.now.to_r * 1_000_000).round
       old = time - @interval
-      range = conn.multi do
-        conn.zremrangebyscore(@key, 0, old)
-        conn.zadd(@key, time, time)
-        conn.zrange(@key, 0, -1)
-        conn.expire(@key, (@interval / 1_000_000.0).ceil)
+      range = conn.multi do |multi|
+        multi.zremrangebyscore(@key, 0, old)
+        multi.zadd(@key, time, time)
+        multi.zrange(@key, 0, -1)
+        multi.expire(@key, (@interval / 1_000_000.0).ceil)
       end[2]
 
       exceeded = range.length > @limit

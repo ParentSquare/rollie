@@ -13,10 +13,12 @@ gem 'simplecov', '>= 0.17.1'
 gem 'simplecov-cobertura'
 gem 'yard', '~> 0.9.26', platforms: not_jruby
 
-# Truffleruby currently crashes due to a missing method
-# when using redis >= 4.2.3
-# NoMethodError: undefined method `wait_writable' for #<Redis::Connection::TCPSocket:fd 17>
-# Needs further investigation
 if RUBY_ENGINE == 'truffleruby'
+  # Truffleruby currently crashes due to a missing method
+  # when using redis >= 4.2.3
+  # NoMethodError: undefined method `wait_writable' for #<Redis::Connection::TCPSocket:fd 17>
+  # Needs further investigation
   gem 'redis', '< 4.2.3'
+elsif ENV['REDIS_VERSION']
+  gem 'redis', ENV['REDIS_VERSION']
 end
