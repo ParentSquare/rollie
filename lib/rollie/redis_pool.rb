@@ -26,7 +26,7 @@ module Rollie
 
       def redis_options(options)
         redis = options.dup
-        redis[:url] ||= ENV['REDIS_URL']
+        redis[:url] ||= ENV.fetch('REDIS_URL', nil)
         redis[:driver] ||= 'ruby'
         redis.delete(:namespace)
         redis

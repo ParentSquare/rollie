@@ -15,8 +15,12 @@ Gem::Specification.new do |s|
   s.email = 'justin.howard@parentsquare.com'
   s.homepage = 'https://github.com/ParentSquare/rollie'
 
-  s.files = `git ls-files -z`.split("\x0")
-  s.test_files = `git ls-files -- test/*`.split("\n")
+  rubydoc = 'https://www.rubydoc.info/gems'
+  s.metadata['rubygems_mfa_required'] = 'true'
+  s.metadata['changelog_uri'] = "#{s.homepage}/blob/master/CHANGELOG.md"
+  s.metadata['documentation_uri'] = "#{rubydoc}/#{s.name}/#{s.version}"
+
+  s.files = Dir['lib/**/*.rb', '*.md', '*.txt', '.yardopts']
 
   s.require_paths = ['lib']
 
