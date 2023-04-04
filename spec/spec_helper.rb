@@ -2,21 +2,18 @@
 
 require 'byebug' if Gem.loaded_specs['byebug']
 
-if ENV['COVERAGE'] || ENV['CI']
-  require 'simplecov'
-  if ENV['CI']
-    require 'simplecov-lcov'
-    SimpleCov::Formatter::LcovFormatter.config.report_with_single_file = true
-    SimpleCov.formatter = SimpleCov::Formatter::LcovFormatter
-  end
+require 'simplecov'
+if ENV['CI']
+  require 'simplecov-cobertura'
+  SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
+end
 
-  SimpleCov.start do
-    if Gem::Version.new(SimpleCov::VERSION) >= Gem::Version.new('0.18.0')
-      enable_coverage :branch
-    end
-    add_filter '/spec/'
-    add_filter '/vendor/'
+SimpleCov.start do
+  if Gem::Version.new(SimpleCov::VERSION) >= Gem::Version.new('0.18.0')
+    enable_coverage :branch
   end
+  add_filter '/spec/'
+  add_filter '/vendor/'
 end
 
 require 'rollie'
