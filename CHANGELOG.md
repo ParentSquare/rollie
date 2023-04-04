@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.0
+
+- Support redis gem versions 3-5 #6 justinhoward
+
 ## 0.1.1
 
 * Remove maximum dependency versions
