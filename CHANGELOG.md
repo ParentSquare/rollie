@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.0
+## 0.1.2
 
 - Support redis gem versions 3-5 #6 justinhoward
 
