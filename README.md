@@ -4,8 +4,8 @@ Rollie
 [![Gem Version](https://badge.fury.io/rb/rollie.svg)](https://badge.fury.io/rb/rollie)
 [![CI](https://github.com/ParentSquare/rollie/workflows/CI/badge.svg)](https://github.com/ParentSquare/rollie/actions?query=workflow%3ACI+branch%3Amaster)
 [![Code Quality](https://app.codacy.com/project/badge/Grade/20f8a080aca5444cbdaebff3a4e7e702)](https://www.codacy.com/gh/ParentSquare/rollie/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ParentSquare/rollie&amp;utm_campaign=Badge_Grade)
-[![Coverage](https://app.codacy.com/project/badge/Coverage/20f8a080aca5444cbdaebff3a4e7e702)](https://www.codacy.com/gh/ParentSquare/rollie/dashboard?utm_source=github.com&utm_medium=referral&utm_content=ParentSquare/rollie&utm_campaign=Badge_Coverage)
-[![Inline docs](http://inch-ci.org/github/ParentSquare/rollie.svg?branch=master)](http://inch-ci.org/github/ParentSquare/rollie)
+[![Coverage Status](https://codecov.io/gh/ParentSquare/rollie/branch/master/graph/badge.svg?token=xxxxxxxxxx)](https://codecov.io/gh/ParentSquare/rollie)
+[![Online docs](https://img.shields.io/badge/docs-✓-green.svg)](https://www.rubydoc.info/github/ParentSquare/rollie)
 
 Rollie is a multi-purpose, fast, Redis backed rate limiter that can be used to
 limit requests to external APIs, in Rack middleware, etc. Rollie uses a

@@ -12,3 +12,4 @@ tmp/
 .ruby-version
 .idea/
 /coverage/
+/.yardoc/

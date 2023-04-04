@@ -1,45 +1,84 @@
 ---
 name: CI
+
 on:
   push:
     tags: ['v*']
     branches: [master]
   pull_request:
     branches: ['**']
+
 jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        ruby: [2.4, 2.5, 2.6, 2.7, 3.0, jruby-9.2.14.0, truffleruby-20.3.0]
+        ruby: ['2.4', '2.5', '2.6', '2.7', '3.0', jruby-head, truffleruby-head]
     services:
       redis:
         image: redis
         ports:
           - 6379:6379
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
-      - run: bundle exec rubocop
-        if: matrix.ruby == '2.7'
       - run: bundle exec rspec --format doc
-      - name: Run codacy-coverage-reporter
-        uses: codacy/codacy-coverage-reporter-action@master
+      - name: Upload coverage reports to Codecov
+        if: matrix.ruby_version == '2.7'
+        uses: codecov/codecov-action@v3
         with:
-          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          coverage-reports: coverage/lcov/rollie.lcov
+          files: coverage/coverage.xml
+
+  rubocop:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.7'
+          bundler-cache: true
+      - run: bundle exec rubocop
+
+  yard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.7'
+          bundler-cache: true
+      - run: bin/yardoc --fail-on-warning
+
+  check_version:
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.7'
+          bundler-cache: true
       - run: bin/check-version
 
   release:
-    needs: test
+    needs: [test, rubocop, yard, check_version]
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: dawidd6/action-publish-gem@v1
-        with:
-          api_key: ${{secrets.RUBYGEMS_API_KEY}}
+      - uses: actions/checkout@v3
+      - name: Publish to GitHub package repository
+        # https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-ruby#publishing-gems
+        run: |
+          mkdir -p $HOME/.gem
+          touch $HOME/.gem/credentials
+          chmod 0600 $HOME/.gem/credentials
+          printf -- "---\n:github: ${GEM_HOST_API_KEY}\n" > $HOME/.gem/credentials
+          gem build *.gemspec
+          gem push --KEY github --host https://rubygems.pkg.github.com/${OWNER} *.gem
+        env:
+          GEM_HOST_API_KEY: "Bearer ${{secrets.GITHUB_TOKEN}}"
+          OWNER: ${{ github.repository_owner }}
