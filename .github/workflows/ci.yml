@@ -14,7 +14,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby: ['2.4', '2.5', '2.6', '2.7', '3.0', jruby-head, truffleruby-head]
+        ruby: ['2.7', '3.0', '3.1', jruby-head, truffleruby-head]
+        redis_gem: ['~> 4', '~> 5']
+        include:
+          - ruby: '2.4'
+            redis_gem: '~> 3'
+          - ruby: '2.5'
+            redis_gem: '~> 4'
+          - ruby: '2.6'
+            redis_gem: '~> 4'
+
+    env:
+      REDIS_VERSION: ${{ matrix.redis_gem }}
+
     services:
       redis:
         image: redis
